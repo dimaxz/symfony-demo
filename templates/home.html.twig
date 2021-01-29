@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Demo!{% endblock %}</title>
+    <style>
+        li{
+            display: inline-block;
+            padding: 3px;
+        }
+        .active{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<table width="500" border="1">
+{% for advert in adverts %}
+    <tr>
+        <td>
+            {{ advert.id }}
+        </td>
+        <td>
+            <a href="/view/{{ advert.id }}">{{ advert.name }}</a>
+        </td>
+        <td>
+            {% if advert.image > '' %}
+            <img src="/images/{{ advert.image }}">
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
+    <tr>
+        <td colspan="4">{{ pagination|raw }}</td>
+    </tr>
+</table>
+</body>
+</html>

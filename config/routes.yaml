@@ -1,0 +1,14 @@
+index:
+    path: /
+    requirements:
+    controller: App\Infrastructure\Controller\HomeController::index
+pages:
+    path: /{page}
+    requirements:
+        page: '\d+'
+    controller: App\Infrastructure\Controller\HomeController::index
+view:
+    path: /view/{id}
+    requirements:
+        page: '\d+'
+    controller: App\Infrastructure\Controller\ViewController::view

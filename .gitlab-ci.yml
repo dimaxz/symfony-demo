@@ -1,0 +1,83 @@
+stages:
+  - build
+  - preprod
+  - production
+
+variables:
+
+  DOCKER_IMAGE: "dr.tradesoft.ru/docker/images/docker:latest"
+  DOCKER_IN_DOCKER_IMAGE: "dr.tradesoft.ru/docker/images/docker:dind"
+
+libs_dev:
+  stage: build
+  tags:
+    - war
+  image: dr.tradesoft.ru/docker/images/php:7.4-alpine-1.0
+  cache:
+    key: composer_cache
+    paths:
+      - .composer-cache
+  artifacts:
+    paths:
+      - vendor
+  script:
+    # Install all project dependencies
+    - APP_ENV=dev COMPOSER_CACHE_DIR=.composer-cache composer install
+    - ls -la
+
+libs:
+  stage: build
+  tags:
+    - war
+  image: dr.tradesoft.ru/docker/images/php:7.4-alpine-1.0
+  cache:
+    key: composer_cache
+    paths:
+      - .composer-cache
+  artifacts:
+    paths:
+      - vendor
+  script:
+    # Install all project dependencies
+    - APP_ENV=prod COMPOSER_CACHE_DIR=.composer-cache composer install --no-dev
+    - ls -la
+
+deploy-to-test:
+  tags:
+    - war
+  stage: preprod
+  image: dr.tradesoft.ru/docker/php-code-tools:1.5
+  dependencies:
+    - libs_dev
+  only:
+    - develop
+  script:
+    - php -v
+    - echo Deploy to translationtest@$RSYNC_HOST::translation-test/
+    - rsync
+      -avzch
+      --exclude '.git'
+      --no-g
+      --no-o
+      --password-file=/r.secret
+      ./ translationtest@$RSYNC_HOST::translation-test/
+
+deploy-to-prod:
+  tags:
+    - war
+  stage: production
+  image: dr.tradesoft.ru/docker/php-code-tools:1.5
+  dependencies:
+    - libs
+  only:
+    - master
+  script:
+    - php -v
+    - echo Deploy to translation@$RSYNC_HOST::translation/
+    - rsync
+      -avzch
+      --exclude '.git'
+      --no-g
+      --no-o
+      --password-file=/r.secret
+      ./ translation@$RSYNC_HOST::translation/
