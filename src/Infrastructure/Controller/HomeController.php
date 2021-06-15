@@ -3,9 +3,13 @@
 namespace App\Infrastructure\Controller;
 
 use App\Domain\Advert\Contracts\AdvertRepositoryInterface;
+use App\Infrastructure\Entity\Advert;
 use App\Infrastructure\Pagination\Pagination;
 use App\Infrastructure\Repository\AdvertCriteria;
+use App\Infrastructure\Events\CustomEvent;
+use App\Infrastructure\Subscribers\CustomSubscriber;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends AbstractController
@@ -27,9 +31,19 @@ class HomeController extends AbstractController
 
         $criteria  = AdvertCriteria::create()
             ->setPage($page)
+            ->setSortById('desc')
             ->setLimit(5);
 
         $pagination = new Pagination();
+
+
+        $advert = new Advert();
+        $advert->setName('Новость '. time());
+        $advert->setBody('Текст...');
+
+
+        $this->advertRepository->save($advert);
+
 
         return $this->render('home.html.twig', [
             'adverts' => $this->advertRepository->findByCriteria(

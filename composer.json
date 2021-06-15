@@ -30,7 +30,8 @@
         "symfony/web-server-bundle": "4.4.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/yaml": "4.4.*",
-        "symfony/var-dumper": "4.*"
+        "symfony/var-dumper": "4.*",
+        "symfony/event-dispatcher": "4.*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",

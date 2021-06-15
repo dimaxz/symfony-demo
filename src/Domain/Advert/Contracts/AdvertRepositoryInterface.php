@@ -16,12 +16,18 @@ interface AdvertRepositoryInterface
 
     /**
      * @param AdvertCriteriaInterface $criteria
-     * @return array
+     * @return \ArrayIterator
      */
     public function findByCriteria(AdvertCriteriaInterface $criteria): \ArrayIterator;
 
     /**
+     * @param AdvertCriteriaInterface $criteria
      * @return int
      */
     public function getCount(AdvertCriteriaInterface $criteria): int;
+
+    /**
+     * @param AdvertEntityInterface $advertEntity
+     */
+    public function save(AdvertEntityInterface $advertEntity): void;
 }

@@ -26,17 +26,14 @@ services:
     #App\Infrastructure\Controller\:
      #   resource: '../src/Infrastructure/Controller/'
         #tags: ['controller.service_arguments']
-    'App\Infrastructure\Repository\AdvertRepository': ~
-    'App\Infrastructure\Repository\AdvertRepositoryDbal': ~
-    'Symfony\Component\HttpFoundation\Request': ~
+    App\Infrastructure\Repository\AdvertRepository: ~
+    App\Infrastructure\Repository\AdvertRepositoryDbal: ~
+    Symfony\Component\HttpFoundation\Request: ~
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
-    'App\Infrastructure\Controller\HomeController':
-        arguments:
-            - '@App\Infrastructure\Repository\AdvertRepository'
-            -
-    'App\Infrastructure\Controller\ViewController':
-        arguments:
-            - '@App\Infrastructure\Repository\AdvertRepository'
+
+    Symfony\Component\EventDispatcher\EventDispatcher:
+        calls:
+            - [ "addSubscriber", [ '@App\Infrastructure\Subscribers\CustomSubscriber' ] ]
+            - [ "addSubscriber", [ '@App\Infrastructure\Subscribers\CustomSubscriberMore' ] ]
+
 

@@ -4,10 +4,12 @@ namespace App\Infrastructure\Entity;
 
 use App\Domain\Advert\Contracts\AdvertEntityInterface;
 use App\Infrastructure\Repository\AdvertRepository;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=AdvertRepository::class)
+ * @ORM\Table(name="advert")
  */
 class Advert implements AdvertEntityInterface
 {

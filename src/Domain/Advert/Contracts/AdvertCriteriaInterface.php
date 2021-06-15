@@ -28,4 +28,15 @@ interface AdvertCriteriaInterface
      * @return int
      */
     public function getLimit():int;
+
+    /**
+     * @return string|null
+     */
+    public function getSortById():?string;
+
+    /**
+     * @param string|null $sort
+     * @return mixed
+     */
+    public function setSortById(?string $sort);
 }

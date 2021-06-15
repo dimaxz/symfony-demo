@@ -20,6 +20,31 @@ class AdvertCriteria implements AdvertCriteriaInterface
     protected $limit = 100;
 
     /**
+     * @var string|null
+     */
+    protected $sortById;
+
+    /**
+     * @return string|null
+     */
+    public function getSortById(): ?string
+    {
+        return $this->sortById;
+    }
+
+    /**
+     * @param string|null $sortById
+     * @return AdvertCriteria
+     */
+    public function setSortById(?string $sortById): AdvertCriteria
+    {
+        $this->sortById = $sortById;
+        return $this;
+    }
+
+
+
+    /**
      * @return mixed
      */
     public function getPage(): int
@@ -60,5 +85,6 @@ class AdvertCriteria implements AdvertCriteriaInterface
     {
         return new self;
     }
+
 
 }
