@@ -13,9 +13,14 @@ RUN apt-get update && \
             htop \
             git \
             curl \
-    && apt-get install -y php-pear php7.2-cli php7.2-fpm php7.2-xml php7.2-dev && \
-    pecl channel-update pecl.php.net && \
-    pecl install xdebug-2.9.8
+    && apt-get install -y php-pear \
+        php7.2-cli \
+        php7.2-fpm \
+        php7.2-xml \
+        php7.2-mysql \
+        php7.2-dev && \
+        pecl channel-update pecl.php.net && \
+        pecl install xdebug-2.9.8
 
 RUN sh -c 'echo "xdebug.default_enable=1" >> /etc/php/7.2/mods-available/xdebug.ini' && \
     sh -c 'echo "xdebug.remote_enable=1" >> /etc/php/7.2/mods-available/xdebug.ini' && \
