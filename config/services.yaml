@@ -30,6 +30,9 @@ services:
     App\Infrastructure\Repository\AdvertRepositoryDbal: ~
     Symfony\Component\HttpFoundation\Request: ~
 
+    App\Infrastructure\Subscribers\AdvertSubscriber:
+        tags:
+            - { name: 'doctrine.event_subscriber',   connect: default}
 
     Symfony\Component\EventDispatcher\EventDispatcher:
         calls:

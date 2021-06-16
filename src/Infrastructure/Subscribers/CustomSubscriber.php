@@ -17,7 +17,7 @@ class CustomSubscriber implements EventSubscriberInterface
     }
 
     public function myEvent($args){
-        dump($args);
+        dump('event from CustomSubscriber');
     }
 
 }

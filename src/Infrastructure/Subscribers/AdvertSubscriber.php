@@ -16,8 +16,6 @@ use Doctrine\ORM\Events;
  */
 class AdvertSubscriber implements EventSubscriber
 {
-    private $indexUpdateProducer;
-
     public function getSubscribedEvents()
     {
         return [
@@ -31,7 +29,7 @@ class AdvertSubscriber implements EventSubscriber
 
         //@todo тут мы поймали стандартное событие доктрины и что то сделали с сущностью
         if($entity instanceof AdvertEntityInterface){
-            //dd($entity);
+            dump('event from doctrine');
         }
 
     }
